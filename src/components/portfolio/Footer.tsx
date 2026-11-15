@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Lock } from 'lucide-react';
+import { downloadCvFile } from '@/src/lib/api';
 
 interface FooterProps {
   fullName: string;
@@ -20,9 +21,15 @@ export function Footer({ fullName }: FooterProps) {
           <a href="#experience" className="transition-colors hover:text-white">
             Experience
           </a>
-          <a href="/api/cv/download" className="transition-colors hover:text-white">
+          <button
+            type="button"
+            onClick={() => {
+              downloadCvFile().catch(() => {});
+            }}
+            className="transition-colors hover:text-white"
+          >
             Download CV
-          </a>
+          </button>
           <Link
             to="/admin"
             className="inline-flex items-center gap-1.5 text-slate-400 transition-colors hover:text-cyan-300"

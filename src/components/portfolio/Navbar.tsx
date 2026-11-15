@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Download, Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
+import { downloadCvFile } from '@/src/lib/api';
 
 interface NavbarProps {
   fullName: string;
@@ -52,13 +53,16 @@ export function Navbar({ fullName }: NavbarProps) {
 
         {/* Zone 3: Single primary action */}
         <div className="flex items-center gap-3 shrink-0">
-          <a
-            href="/api/cv/download"
+          <button
+            type="button"
+            onClick={() => {
+              downloadCvFile().catch(() => {});
+            }}
             className="hidden sm:inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-blue-950/50 transition-all duration-200 hover:brightness-110 active:scale-[0.98] whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
           >
             <Download className="h-3.5 w-3.5" aria-hidden="true" />
             <span>Download CV</span>
-          </a>
+          </button>
 
           <button
             type="button"
@@ -99,14 +103,17 @@ export function Navbar({ fullName }: NavbarProps) {
               >
                 Admin Panel
               </Link>
-              <a
-                href="/api/cv/download"
-                onClick={() => setMobileOpen(false)}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  downloadCvFile().catch(() => {});
+                }}
                 className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 px-4 py-2.5 text-sm font-semibold text-white"
               >
                 <Download className="h-4 w-4" aria-hidden="true" />
                 <span>Download CV</span>
-              </a>
+              </button>
             </nav>
           </motion.div>
         )}

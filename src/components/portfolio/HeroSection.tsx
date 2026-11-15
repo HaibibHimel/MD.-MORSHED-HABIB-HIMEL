@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowDownRight, Download, Mail, User } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { resolveProfileImage } from '@/src/lib/defaultAssets';
+import { downloadCvFile } from '@/src/lib/api';
 import type { PortfolioProfile, SocialLinkItem } from '@/src/types/portfolio';
 import { AnimatedCounter } from './AnimatedCounter';
 import { renderSocialIcon } from './IconMap';
@@ -156,16 +157,19 @@ export function HeroSection({
               transition={{ duration: 0.55, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
               className="mt-8 flex flex-wrap items-center gap-3.5"
             >
-              <motion.a
+              <motion.button
+                type="button"
                 whileHover={prefersReduced ? undefined : { y: -2, scale: 1.02 }}
                 whileTap={prefersReduced ? undefined : { scale: 0.98 }}
                 transition={{ duration: 0.16 }}
-                href="/api/cv/download"
+                onClick={() => {
+                  downloadCvFile().catch(() => {});
+                }}
                 className="inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-blue-950/60 transition-all duration-200 hover:brightness-110 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
               >
                 <Download className="h-4 w-4" aria-hidden="true" />
                 <span>Download CV</span>
-              </motion.a>
+              </motion.button>
 
               <motion.a
                 whileHover={prefersReduced ? undefined : { y: -2 }}

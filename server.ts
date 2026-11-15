@@ -935,6 +935,7 @@ async function startServer() {
   } else {
     const distDir = path.resolve(process.cwd(), 'dist');
     app.use(express.static(distDir));
+    app.use('/admin/assets', express.static(path.join(distDir, 'assets')));
     app.get('/{*splat}', (_req, res) => {
       res.sendFile(path.join(distDir, 'index.html'));
     });

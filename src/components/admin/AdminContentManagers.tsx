@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { Download, Edit3, FileText, Plus, RotateCcw, Trash2, Upload } from 'lucide-react';
-import { adminMutate, resetCvToAuto, uploadCvPdf } from '@/src/lib/api';
+import { adminMutate, downloadCvFile, resetCvToAuto, uploadCvPdf } from '@/src/lib/api';
 import { SKILL_ICON_OPTIONS, renderSkillIcon } from '@/src/components/portfolio/IconMap';
 import type {
   CertificationItem,
@@ -888,13 +888,16 @@ export function SocialsAndCvManager({
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <a
-              href="/api/cv/download"
+            <button
+              type="button"
+              onClick={() => {
+                downloadCvFile().catch(() => {});
+              }}
               className="inline-flex items-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-xs font-semibold text-slate-200 hover:bg-white/5"
             >
               <Download className="h-4 w-4" aria-hidden="true" />
               <span>Test Download</span>
-            </a>
+            </button>
 
             <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white hover:bg-blue-500">
               <Upload className="h-4 w-4" aria-hidden="true" />
